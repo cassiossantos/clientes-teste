@@ -1,0 +1,11 @@
+.panel {
+    margin: 50px 0px;
+    box-shadow: 0px 2px 2px 0px #d6d6d6;
+}
+.panel-body {
+    padding: 40px !important;
+}
+input,
+button[type="submit"] {
+    height: 46px !important;
+}
