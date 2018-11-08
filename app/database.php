@@ -29,6 +29,7 @@ class Database
                 `senha` VARCHAR(124) NOT NULL  
             );
             CREATE TABLE IF NOT EXISTS `dividas`(
+                `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY , 
                 `cliente_id` INT(6), 
                 `valor` VARCHAR(160) NOT NULL , 
                 `criado_em` TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) 
