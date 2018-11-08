@@ -3,14 +3,38 @@
 
 require_once("../../app/database.php");
 
+session_start();
+
+$alertas = '';
 
 if (isset($_POST['login'])) {
 
     $email = $_POST['email'];
-    $pwd = $_POST['password'];
-    $db = new Database;
+    $senha = $_POST['password'];
 
-    $d = $db->conn->query("SELECT * FROM clientes where email = $email and senha = $pwd");
+    $db = new Database;
+    $query = $db->conn->query("SELECT * FROM clientes where email = '$email'");
+
+    if ($query->rowCount() === 1) {
+        $cliente_ = $query->fetch();
+        $senha_ = $cliente_['senha'];
+        if (password_verify($senha, $senha_)) {
+            $_SESSION['cliente_id'] = $cliente_['id'];
+            header('Location: home.php');
+
+        } else {
+            $alertas = "<div class='alert alert-info'>Cliente inválido. Tente novamente ou realize um cadastro <a href='../'>aqui</a>.</div>";
+
+        }
+
+    } else {
+        $alertas = "<div class='alert alert-info'>Cliente inválido. Tente novamente ou realize um cadastro <a href='../'>aqui</a>.</div>";
+
+    }
+
+
+
+
 
 }
 
@@ -32,14 +56,14 @@ if (isset($_POST['login'])) {
 <div class="container">
     
     <div class="col-xs-12 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
-        
         <div class="panel panel-default">
-           
+            
             <div  class="panel-body">
-               
-               <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" class="form-horizontal" role="form">
-                       <div class="form-group">
+                
+                <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" class="form-horizontal" role="form">
+                        <div class="form-group">
                             <legend>Login: </legend>
+                            <?= $alertas ?>
                        </div>
                      
                        <div class="form-group">

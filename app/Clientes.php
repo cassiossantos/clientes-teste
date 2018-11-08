@@ -38,8 +38,11 @@ class Clientes
     }
 
 
-    public function read()
+    public function read($id)
+
     {
+        $query = $this->db->conn->query("SELECT * from clientes where id = $id")->fetch();
+        return $query;
 
     }
     public function update()

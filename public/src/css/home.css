@@ -1,0 +1,13 @@
+.table-responsive {
+    height: 220px !important;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: orangered;
+    border-radius: 10px;
+}
