@@ -15,6 +15,10 @@ if ($_SESSION['token'] !== $token) {
     $senha = password_hash($_POST['senha'], 1);
 
     $cliente = new Clientes($nome, $sobrenome, $email, $senha);
+
+
+
+
     if ($cliente->create()) {
         session_start();
         $_SESSION['cliente_id'] = $cliente->getId();

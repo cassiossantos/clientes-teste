@@ -6,10 +6,10 @@ class Database
 
 {
 
-    protected $db_host = '';
-    protected $db_user = '';
-    protected $db_name = '';
-    protected $db_password = '';
+    protected $db_host = "";
+    protected $db_user = "";
+    protected $db_name = "";
+    protected $db_password = "";
 
     public $conn = null;
 

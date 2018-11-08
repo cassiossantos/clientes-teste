@@ -3,7 +3,6 @@
 
 session_start();
 
-
 require_once("../../app/database.php");
 
 require_once("../auth/Login.php");
@@ -17,11 +16,11 @@ if (!empty($_SESSION['cliente_id'])) {
 
 $login->logado() ? null : header("Location: ../");
 
-
-
 $db = new Database;
 
 $id = $_SESSION['cliente_id'];
+
+$cliente_id = $_SESSION['cliente_id'];
 
 $cliente = $db->conn->query("SELECT * FROM clientes where id = $id")->fetch();
 
@@ -42,6 +41,16 @@ if (isset($_POST['enviar'])) {
         $alertas = "<div class='alert alert-info'><a href='' class='close' aria-label='close'>&times;</a>Por favor, preencha o campo dívida.</div>";
     }
 }
+// remover dívida
+
+if (isset($_POST['remove_divida'])) {
+    $divida_id = $_POST['divida'];
+    $db = new Database;
+
+    $db->conn->query("DELETE FROM dividas where id = $divida_id");
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,17 +116,24 @@ if (isset($_POST['enviar'])) {
                 <tbody>
                 <?php
                 $conn = new Database;
-                $cliente_id = $_SESSION['cliente_id'];
+
                 empty($cliente_id) ? header('Location: ../') : null;
 
                 $dividas = $conn->conn->query("SELECT * FROM dividas where cliente_id = $cliente_id order by criado_em desc");
                 foreach ($dividas as $value) {
                     $valor = $value['valor'];
                     $data = $value['criado_em'];
+                    $divida_id = $value['id'];
                     echo <<<edo
                     <tr>
                         <td>$valor</td>
-                        <td>$data</td>
+                        <td>$data 
+                        <form action='' method='POST'>
+                            <input name='divida' type='hidden' value='$divida_id'>
+                             <button name='remove_divida' class='pull-right btn btn-danger'>Já quitei</button>
+                        </form>
+                         
+                         </td>
                     </tr>
 edo;
                 }
