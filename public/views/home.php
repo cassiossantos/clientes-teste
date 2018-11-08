@@ -53,8 +53,7 @@ if (isset($_POST['enviar'])) {
               <div class="panel-body">
 
                   <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-                      <div class="form-group">
-                          
+                      <div class="form-group">        
                              <input name='divida'  list='divida' class="form-control" placeholder='R$ 1.000'>
                             <datalist id='divida'>
                                 <option value="R$ 2.000">
